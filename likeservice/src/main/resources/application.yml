@@ -1,0 +1,11 @@
+spring:
+  application:
+    name: likes
+  config:
+    import: optional:configserver:http://localhost:8888
+#spring:
+#  application:
+#    name: students
+#  config:
+#    import: optional:configserver:http://localhost:8888
+#debug: true
