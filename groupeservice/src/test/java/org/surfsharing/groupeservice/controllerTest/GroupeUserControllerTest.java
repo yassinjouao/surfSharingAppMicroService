@@ -20,6 +20,7 @@ import java.util.Arrays;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.*;
 
@@ -48,12 +49,12 @@ class GroupeUserControllerTest {
     @Test
     void ajouterGroupeUser() {
         GroupeUserDto groupeUserDto = new GroupeUserDto();
-        when(groupeUserService.ajouterGroupe(any())).thenReturn(groupeUserDto);
+        when(groupeUserService.ajouterGroupeUser(any())).thenReturn(groupeUserDto);
 
-        ResponseEntity<GroupeUserDto> responseEntity = groupeUserController.ajouterGroupeUser(groupeUserDto);
+        ResponseEntity<Object> responseEntity = groupeUserController.ajouterGroupeUser(groupeUserDto);
 
         assertResponse(HttpStatus.CREATED, responseEntity, groupeUserDto);
-        verify(groupeUserService, times(1)).ajouterGroupe(any());
+        verify(groupeUserService, times(1)).ajouterGroupeUser(any());
     }
 
     @Test
@@ -85,7 +86,7 @@ class GroupeUserControllerTest {
         GroupeUserDto groupeUserDto = new GroupeUserDto();
         when(groupeUserService.updateGroupeUser(any(), eq(id))).thenReturn(groupeUserDto);
 
-        ResponseEntity<GroupeUserDto> responseEntity = groupeUserController.updateGroupeUser(groupeUserDto, id);
+        ResponseEntity<GroupeUserDto> responseEntity = groupeUserController.updateGroupeUser(id, groupeUserDto);
 
         assertResponse(HttpStatus.OK, responseEntity, groupeUserDto);
         verify(groupeUserService, times(1)).updateGroupeUser(any(), eq(id));
@@ -96,10 +97,24 @@ class GroupeUserControllerTest {
         Long id = 1L;
         doNothing().when(groupeUserService).deleteGroupeUser(id);
 
-        ResponseEntity<Void> responseEntity = groupeUserController.deleteGroupeUser(id);
 
-        assertEquals(HttpStatus.NO_CONTENT, responseEntity.getStatusCode());
+        ResponseEntity<String> responseEntity = groupeUserController.deleteGroupeUser(id);
+
+        assertEquals(HttpStatus.OK, responseEntity.getStatusCode());
+        assertEquals("GroupeUser with id " + id + " was deleted successfully", responseEntity.getBody());
         verify(groupeUserService, times(1)).deleteGroupeUser(id);
+    }
+
+    @Test
+    void getUsersInGroup() {
+        Long groupId = 1L;
+        List<GroupeUserDto> usersInGroup = Arrays.asList(new GroupeUserDto(), new GroupeUserDto());
+        when(groupeUserService.getUsersInGroup(groupId)).thenReturn(usersInGroup);
+
+        ResponseEntity<List<GroupeUserDto>> responseEntity = groupeUserController.getUsersInGroup(groupId);
+
+        assertResponse(HttpStatus.OK, responseEntity, usersInGroup);
+        verify(groupeUserService, times(1)).getUsersInGroup(groupId);
     }
 
     private <T> void assertResponse(HttpStatus expectedStatus, ResponseEntity<T> responseEntity, T expectedBody) {

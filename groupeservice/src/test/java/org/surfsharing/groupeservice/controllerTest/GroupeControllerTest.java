@@ -97,9 +97,10 @@ class GroupeControllerTest {
         Long id = 1L;
         doNothing().when(groupeService).deleteGroupe(id);
 
-        ResponseEntity<Void> responseEntity = groupeController.deleteGroupe(id);
+        ResponseEntity<String> responseEntity = groupeController.deleteGroupe(id);
 
         assertEquals(HttpStatus.NO_CONTENT, responseEntity.getStatusCode());
+        assertEquals("Groupe with id " + id + " was deleted successfully", responseEntity.getBody());
         verify(groupeService, times(1)).deleteGroupe(id);
     }
 

@@ -48,8 +48,9 @@ public class GroupeController {
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<Void> deleteGroupe(@PathVariable Long id) {
+    public ResponseEntity<String> deleteGroupe(@PathVariable Long id) {
         groupeService.deleteGroupe(id);
-        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        return ResponseEntity.ok("GroupeUser with id " + id + " was deleted successfully");
+
     }
 }

@@ -3,14 +3,14 @@ package org.surfsharing.groupeservice.service.impl;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.surfsharing.groupeservice.dto.GroupeDto;
 import org.surfsharing.groupeservice.dto.GroupeUserDto;
-import org.surfsharing.groupeservice.entity.Groupe;
 import org.surfsharing.groupeservice.entity.GroupeUser;
 import org.surfsharing.groupeservice.repository.GroupeUserRepository;
 import org.surfsharing.groupeservice.service.IGroupeUserService;
 
+import java.util.Collections;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
@@ -22,10 +22,15 @@ public class GroupeUserServiceImpl implements IGroupeUserService {
     private ModelMapper modelMapper;
 
     @Override
-    public GroupeUserDto ajouterGroupe(GroupeUserDto groupeUserDto) {
-        GroupeUser groupeUser = modelMapper.map(groupeUserDto , GroupeUser.class);
-        GroupeUser saveGroupeUser = groupeUserRepository.save(groupeUser);
-        return modelMapper.map(saveGroupeUser, GroupeUserDto.class);
+    public GroupeUserDto ajouterGroupeUser(GroupeUserDto groupeUserDto) {
+        if (isUserInGroup(groupeUserDto.getUserId(), groupeUserDto.getGroupeId())) {
+            return null;
+        }
+
+        GroupeUser groupeUser = modelMapper.map(groupeUserDto, GroupeUser.class);
+        GroupeUser savedGroupeUser = groupeUserRepository.save(groupeUser);
+
+        return modelMapper.map(savedGroupeUser, GroupeUserDto.class);
     }
 
     @Override
@@ -63,5 +68,18 @@ public class GroupeUserServiceImpl implements IGroupeUserService {
             groupeUser.setDeleted(true);
             groupeUserRepository.save(groupeUser);
         }
+    }
+
+    @Override
+    public List<GroupeUserDto> getUsersInGroup(Long groupId) {
+        List<GroupeUser> groupUsers = groupeUserRepository.findByGroupeIdAndDeletedFalse(groupId);
+        return groupUsers.stream()
+                .map(groupeUser -> modelMapper.map(groupeUser, GroupeUserDto.class))
+                .collect(Collectors.toList());
+    }
+
+
+    private boolean isUserInGroup(Long userId, Long groupId) {
+        return groupeUserRepository.existsByUserIdAndGroupeIdAndDeletedFalse(userId, groupId);
     }
 }

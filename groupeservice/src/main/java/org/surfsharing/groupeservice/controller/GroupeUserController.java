@@ -16,17 +16,18 @@ public class GroupeUserController {
     @Autowired
     private IGroupeUserService groupeUserService;
 
-    @PostMapping
-    public ResponseEntity<GroupeUserDto> ajouterGroupeUser(@RequestBody GroupeUserDto groupeUserDto) {
-        GroupeUserDto addedGroupeUser = groupeUserService.ajouterGroupe(groupeUserDto);
-        return new ResponseEntity<>(addedGroupeUser, HttpStatus.CREATED);
+    @PostMapping()
+    public ResponseEntity<Object> ajouterGroupeUser(@RequestBody GroupeUserDto groupeUserDto) {
+        GroupeUserDto result = groupeUserService.ajouterGroupeUser(groupeUserDto);
+
+        if (result == null) {
+            return new ResponseEntity<>("User is already in the group", HttpStatus.BAD_REQUEST);
+        }
+
+        return new ResponseEntity<>(result, HttpStatus.CREATED);
     }
 
-    @GetMapping
-    public ResponseEntity<List<GroupeUserDto>> getGroupesUsers() {
-        List<GroupeUserDto> groupesUsers = groupeUserService.getGroupesUsers();
-        return new ResponseEntity<>(groupesUsers, HttpStatus.OK);
-    }
+
 
     @GetMapping("/{id}")
     public ResponseEntity<GroupeUserDto> getGroupeUserById(@PathVariable Long id) {
@@ -38,8 +39,8 @@ public class GroupeUserController {
         }
     }
 
-    @PutMapping("/{id}")
-    public ResponseEntity<GroupeUserDto> updateGroupeUser(@RequestBody GroupeUserDto groupeUserDto, @PathVariable Long id) {
+    @PutMapping("/update/{id}")
+    public ResponseEntity<GroupeUserDto> updateGroupeUser(@PathVariable Long id, @RequestBody GroupeUserDto groupeUserDto) {
         GroupeUserDto updatedGroupeUser = groupeUserService.updateGroupeUser(groupeUserDto, id);
         if (updatedGroupeUser != null) {
             return new ResponseEntity<>(updatedGroupeUser, HttpStatus.OK);
@@ -48,9 +49,20 @@ public class GroupeUserController {
         }
     }
 
-    @DeleteMapping("/{id}")
-    public ResponseEntity<Void> deleteGroupeUser(@PathVariable Long id) {
+    @DeleteMapping("/delete/{id}")
+    public ResponseEntity<String> deleteGroupeUser(@PathVariable Long id) {
         groupeUserService.deleteGroupeUser(id);
-        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        return ResponseEntity.ok("GroupeUser with id " + id + " was deleted successfully");
     }
+    @GetMapping
+    public ResponseEntity<List<GroupeUserDto>> getGroupesUsers() {
+        List<GroupeUserDto> groupesUsers = groupeUserService.getGroupesUsers();
+        return new ResponseEntity<>(groupesUsers, HttpStatus.OK);
+    }
+    @GetMapping("/getUsersInGroup/{groupId}")
+    public ResponseEntity<List<GroupeUserDto>> getUsersInGroup(@PathVariable Long groupId) {
+        List<GroupeUserDto> usersInGroup = groupeUserService.getUsersInGroup(groupId);
+        return new ResponseEntity<>(usersInGroup, HttpStatus.OK);
+    }
+
 }

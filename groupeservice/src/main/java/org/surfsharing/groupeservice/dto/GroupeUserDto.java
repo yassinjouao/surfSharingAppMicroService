@@ -12,4 +12,7 @@ public class GroupeUserDto implements Serializable {
     Long userId;
     Long groupeId;
     boolean deleted;
+
+    public GroupeUserDto(String s) {
+    }
 }

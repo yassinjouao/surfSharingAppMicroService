@@ -36,7 +36,7 @@ class GroupeUserServiceImplTest {
         groupeUserDto = new GroupeUserDto();
         groupeUserDto.setUserId(1L);
         groupeUserDto.setGroupeId(1L);
-        groupeUserDto = groupeUserService.ajouterGroupe(groupeUserDto);
+        groupeUserDto = groupeUserService.ajouterGroupeUser(groupeUserDto);
     }
 
     @AfterEach
@@ -75,5 +75,11 @@ class GroupeUserServiceImplTest {
         Long groupeUserId = groupeUserDto.getId();
         assertNotNull(groupeUserService.getGroupesUsersById(groupeUserId), "groupeUser not found before deletion");
         groupeUserService.deleteGroupeUser(groupeUserId);
+    }
+    @Test
+    void getUsersInGroup() {
+        Long groupId = 1L;
+        List<GroupeUserDto> usersInGroup = groupeUserService.getUsersInGroup(groupId);
+        assertNotNull(usersInGroup, "List is empty");
     }
 }
