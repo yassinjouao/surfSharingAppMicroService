@@ -34,15 +34,6 @@ public class ShareServiceTest {
 
     private List<Shares> sharesList;
 
-//    @BeforeEach
-//    public void setUp() {
-//        sharesList = new ArrayList<>();
-//        when(shareRepository.save(ArgumentMatchers.any(Shares.class))).thenAnswer(invocation -> {
-//            Shares savedShares = invocation.getArgument(0);
-//            sharesList.add(savedShares);
-//            return savedShares;
-//        });
-//    }
 
     @BeforeEach
     public void setUp() {
@@ -55,7 +46,7 @@ public class ShareServiceTest {
                 return savedShares;
             });
         }
-        // Sinon, aucune action nécessaire pour ce test
+       
     }
     @ShareServiceTest.SetupRequired
     @Test
