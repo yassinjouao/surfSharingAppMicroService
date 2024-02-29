@@ -12,38 +12,6 @@ import java.util.List;
 @RestController
 @RequestMapping("/api/v1/coments")
 @RequiredArgsConstructor
-/*public class ComentController {
-
-    private final ComentService service;
-
-    @PostMapping
-    @ResponseStatus(HttpStatus.CREATED)
-    public void save(
-            @RequestBody Coment coment
-    ){
-        service.saveComent(coment);
-//        Comment savedComment = commentService.addComment(comment);
-//        return new ResponseEntity<>(savedComment, HttpStatus.CREATED);
-    }
-
-    @GetMapping
-    public ResponseEntity<List<Coment>> fingAllComents(){
-        return ResponseEntity.ok(service.findAllComents());
-
-    }
-
-    @GetMapping("/school/{school-id}")
-    public ResponseEntity<List<Coment>> fingAllComents(
-            @PathVariable("school-id") Integer schoolId
-    ){
-        return ResponseEntity.ok(service.findAllComentsBySchool(schoolId));
-
-    }
-}
-
-////
-@RestController
-@RequestMapping("/comment")*/
 public class ComentController {
 
     //@Autowired
