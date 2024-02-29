@@ -81,22 +81,3 @@ public class ComentService implements ComentServiceI {
 }
 
 
-/*@Service
-@RequiredArgsConstructor
-public class ComentService {
-
-    private final ComentRepository repository;
-
-    public void saveComent(Coment coment){
-        repository.save(coment);
-    }
-
-    public List<Coment> findAllComents(){
-        return repository.findAll();
-    }
-
-    public List<Coment> findAllComentsBySchool(Integer schoolId) {
-        return repository.findAllBySchoolId(schoolId);
-    }
-}
-*/
