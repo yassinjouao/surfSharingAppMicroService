@@ -9,7 +9,18 @@
         <option value="$PROJECT_DIR$/identityservice/pom.xml" />
         <option value="$PROJECT_DIR$/groupeservice/pom.xml" />
         <option value="$PROJECT_DIR$/reactionservice/pom.xml" />
+        <option value="$PROJECT_DIR$/gateway/pom.xml" />
+        <option value="$PROJECT_DIR$/configserver/pom.xml" />
+        <option value="$PROJECT_DIR$/discovery/pom.xml" />
+        <option value="$PROJECT_DIR$/gateway/exempleservice/pom.xml" />
+        <option value="$PROJECT_DIR$/exempleservice/pom.xml" />
+        <option value="$PROJECT_DIR$/usedservice/pom.xml" />
       </list>
+    </option>
+    <option name="ignoredFiles">
+      <set>
+        <option value="$PROJECT_DIR$/gateway/exempleservice/pom.xml" />
+      </set>
     </option>
     <option name="workspaceImportForciblyTurnedOn" value="true" />
   </component>
