@@ -10,11 +10,15 @@
         <option value="$PROJECT_DIR$/groupeservice/pom.xml" />
         <option value="$PROJECT_DIR$/reactionservice/pom.xml" />
         <option value="$USER_HOME$/Downloads/foodHero (2)/microservices/like/pom.xml" />
+        <option value="$USER_HOME$/Downloads/foodHero (2)/microservices/coment/pom.xml" />
+        <option value="$PROJECT_DIR$/comentservice/pom.xml" />
+        <option value="$PROJECT_DIR$/likeservice/pom.xml" />
+        <option value="$USER_HOME$/Downloads/foodHero (2)/microservices/share/pom.xml" />
       </list>
     </option>
     <option name="ignoredFiles">
       <set>
-        <option value="$USER_HOME$/Downloads/foodHero (2)/microservices/like/pom.xml" />
+        <option value="$PROJECT_DIR$/likeservice/pom.xml" />
       </set>
     </option>
     <option name="workspaceImportForciblyTurnedOn" value="true" />

@@ -6,25 +6,31 @@
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
-        <module name="identityservice" />
         <module name="reactionservice" />
         <module name="relationservice" />
+        <module name="comentservice" />
         <module name="postservice" />
         <module name="groupeservice" />
+        <module name="share" />
+        <module name="identityservice" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
+      <module name="coment" target="17" />
       <module name="like" target="17" />
     </bytecodeTargetLevel>
   </component>
   <component name="JavacSettings">
     <option name="ADDITIONAL_OPTIONS_OVERRIDE">
+      <module name="coment" options="-parameters" />
+      <module name="comentservice" options="-parameters" />
       <module name="groupeservice" options="-parameters" />
       <module name="identityservice" options="-parameters" />
       <module name="like" options="-parameters" />
       <module name="postservice" options="-parameters" />
       <module name="reactionservice" options="-parameters" />
       <module name="relationservice" options="-parameters" />
+      <module name="share" options="-parameters" />
     </option>
   </component>
 </project>
