@@ -9,5 +9,6 @@ public interface IpostService {
     void deletePost(Long id,Long adminid);
     PostDto updatePost(PostDto postDto,Long id,Long adminid);
     List<PostDto> getAllPosts(Long adminid);
+    List<PostDto> Feed(Long adminid);
 
 }

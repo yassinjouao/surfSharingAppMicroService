@@ -40,6 +40,13 @@ spring:
             - Path=/api/v1/likes/**
           filters:
             - AuthenticationFilter
+        ##Relation Service
+        - id: relationservice
+          uri: lb://relationservice
+          predicates:
+            - Path=/api/v1/friends/**
+          filters:
+            - AuthenticationFilter
         ##if needed
         - id: usedservice
           uri: lb://usedservice

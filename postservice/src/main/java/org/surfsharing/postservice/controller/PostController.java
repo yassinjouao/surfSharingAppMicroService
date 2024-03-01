@@ -46,6 +46,12 @@ public class PostController {
         List<PostDto> posts = postService.getAllPosts(adminid);
         return new ResponseEntity<>(posts,HttpStatus.OK);
     }
+    @GetMapping("feed")
+    public ResponseEntity<List<PostDto>> feed(HttpServletRequest request){
+        Long adminid = Long.parseLong(request.getHeader("hid"));
+        List<PostDto> posts = postService.Feed(adminid);
+        return new ResponseEntity<>(posts,HttpStatus.OK);
+    }
 
     @GetMapping("likepost/{idPost}")
     public ResponseEntity<LikeDto> likePost(@PathVariable("idPost") Long idPost,HttpServletRequest request){

@@ -4,11 +4,13 @@ import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.surfsharing.postservice.FriendService.FriendClient;
 import org.surfsharing.postservice.LikeClient.LikeClient;
 import org.surfsharing.postservice.dto.PostDto;
 import org.surfsharing.postservice.entity.Post;
 import org.surfsharing.postservice.repository.PostRepository;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -21,6 +23,8 @@ public class PostServiceImpl implements IpostService{
     private ModelMapper modelMapper;
     @Autowired
     private LikeClient likeClient;
+    @Autowired
+    private FriendClient friendClient;
 
     @Override
     public PostDto addPost(PostDto postDto) {
@@ -49,6 +53,22 @@ public class PostServiceImpl implements IpostService{
     public List<PostDto> getAllPosts(Long adminid) {
         List<Post> posts = postRepository.findByUserId(adminid);
 
+        return posts.stream().map(post -> {
+            PostDto postDto = modelMapper.map(post, PostDto.class);
+            Integer likecounter = likeClient.getLikesByContentId(post.getId());
+            postDto.setLikeCounter(likecounter);
+            return postDto;
+        }).collect(Collectors.toList());
+    }
+    @Override
+    public List<PostDto> Feed(Long adminid) {
+        List<Post> posts = new ArrayList<>();
+        List<Long> idFriends = friendClient.getAllIdFriends(adminid);
+        idFriends.add(adminid);
+        for (int i = 0; i < idFriends.size(); i++) {
+            List<Post> oneFriendPosts = postRepository.findByUserId(idFriends.get(i));
+            posts.addAll(oneFriendPosts);
+        }
         return posts.stream().map(post -> {
             PostDto postDto = modelMapper.map(post, PostDto.class);
             Integer likecounter = likeClient.getLikesByContentId(post.getId());
