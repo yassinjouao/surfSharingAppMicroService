@@ -21,26 +21,10 @@ public class MapperConfig {
     @Bean
     public ModelMapper modelMapper() {
         ModelMapper modelMapper =new ModelMapper();
-        Converter<Object, List<?>> mergingCollectionConverter = new AbstractConverter<Object, List<?>>() {
-            @Override
-            protected List<?> convert(Object source) {
-                return modelMapper.map(source, List.class);
-            }
-        };
 
-        modelMapper.addConverter(mergingCollectionConverter);
 
         return modelMapper;
     }
 
-    @Bean
-    public ObjectMapper objectMapper() {
-        ObjectMapper objectMapper = new ObjectMapper();
 
-        objectMapper
-                .registerModule(new JavaTimeModule())
-                .configure(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS, false);
-
-        return objectMapper;
-    }
 }
