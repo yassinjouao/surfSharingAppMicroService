@@ -14,6 +14,7 @@ public class PostDto implements Serializable {
     String content;
     Long userId;
     Long groupeId;
+    Integer likeCounter;
     boolean deleted;
 }
 

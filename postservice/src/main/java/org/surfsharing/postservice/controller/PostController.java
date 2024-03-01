@@ -7,6 +7,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.surfsharing.postservice.LikeClient.LikeClient;
+import org.surfsharing.postservice.dto.LikeDto;
 import org.surfsharing.postservice.dto.PostDto;
 import org.surfsharing.postservice.service.impl.IpostService;
 
@@ -19,6 +21,8 @@ public class PostController {
 
     @Autowired
     private IpostService postService;
+    @Autowired
+    private LikeClient likeClient;
     @PostMapping
     public ResponseEntity<PostDto> addPost(@RequestBody PostDto postDto, HttpServletRequest request){
         Long adminid = Long.parseLong(request.getHeader("hid"));
@@ -42,12 +46,15 @@ public class PostController {
         List<PostDto> posts = postService.getAllPosts(adminid);
         return new ResponseEntity<>(posts,HttpStatus.OK);
     }
-    // DONE:
-    // TO9OSSE
-    // TODO:
-    // service like mn 3nd sofia
-    // linking likepost b chfanchtayger l posts
-    // linking friends b chfanchtayger l users
+
+    @GetMapping("likepost/{idPost}")
+    public ResponseEntity<LikeDto> likePost(@PathVariable("idPost") Long idPost,HttpServletRequest request){
+        Long adminid = Long.parseLong(request.getHeader("hid"));
+        LikeDto likeDto = likeClient.addLike(idPost,adminid);
+        return new ResponseEntity<>(likeDto,HttpStatus.OK);
+    }
+
+    //  linking friends b chfanchtayger l users
     // ...
 
 }

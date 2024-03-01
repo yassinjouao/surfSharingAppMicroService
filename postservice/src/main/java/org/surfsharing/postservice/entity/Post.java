@@ -22,6 +22,6 @@ public class Post {
     private String content;
     private Long userId;
     private Long groupeId;
-    private Long likeCounter;
+    private Integer likeCounter;
     boolean deleted;
 }

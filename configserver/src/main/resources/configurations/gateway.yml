@@ -33,6 +33,13 @@ spring:
             - Path=/api/v1/post/**
           filters:
             - AuthenticationFilter
+        ##Reaction Service
+        - id: reactionservice
+          uri: lb://reactionservice
+          predicates:
+            - Path=/api/v1/likes/**
+          filters:
+            - AuthenticationFilter
         ##if needed
         - id: usedservice
           uri: lb://usedservice
